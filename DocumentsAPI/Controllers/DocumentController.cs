@@ -5,6 +5,7 @@ using Documents.Requests;
 using Documents.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace Documents.Controllers;
 
@@ -53,6 +54,7 @@ public class DocumentController : ControllerBase
 
     [HttpGet("{documentId}.{format}")]
     [FormatFilter]
+    [OutputCache]
     public async Task<IActionResult> GetJsonDocument(string documentId)
     {
         return await GetDocument(documentId);
@@ -60,6 +62,7 @@ public class DocumentController : ControllerBase
 
     [HttpGet("list")]
     [Produces("application/json")]
+    [OutputCache]
     public async Task<IActionResult> ListAllDocuments()
     {
         IList<DocumentDto> result;
